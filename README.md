@@ -16,6 +16,7 @@ Very much at a "works for me" stage. Displays:
  - speed of wired ethernet connections
  - whether wifi is enabled
  - whether wifi hardware switch is turned on
+ - list of running LXC containers (via libvirt)
  - battery charge level
  - load average
  - current date / time
