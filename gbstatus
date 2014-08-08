@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from gi.repository import NetworkManager, NMClient
+from gi.repository import NMClient
 import datetime
 import libvirt
 import socket
@@ -9,6 +9,7 @@ import struct
 import time
 import sys
 import os
+
 
 def network():
     def show_ipv4(i):
@@ -44,7 +45,7 @@ def network():
     if other_info:
         r += " " + " ".join(other_info)
     return r
-    
+
 
 def battery():
     def sys_read(f):
@@ -55,21 +56,29 @@ def battery():
         sys_read_float('/sys/class/power_supply/BAT0/charge_full')
     return "⚡ %.2f%%" % (per)
 
+
 libvirt_conn = libvirt.openReadOnly('lxc:///')
+
+
 def vms():
-    return ' '.join('⌨  ' + t.name() for t in libvirt_conn.listAllDomains() if t.isActive())
+    return ' '.join(
+        '⌨  ' + t.name() for t in libvirt_conn.listAllDomains()
+        if t.isActive())
+
 
 def load():
     return "😰 %.2f" % (os.getloadavg()[0])
 
+
 def now():
     return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
 
 class Status:
     def __init__(self):
         self.sep = ' | '
         self.interval = 5
-        self.status_fns = [ network, vms, battery, load, now ]
+        self.status_fns = [network, vms, battery, load, now]
 
     def run(self):
         while True:
@@ -88,4 +97,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
