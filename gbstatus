@@ -57,7 +57,7 @@ def battery():
 
 libvirt_conn = libvirt.openReadOnly('lxc:///')
 def vms():
-    return ','.join('⌨  ' + t.name() for t in libvirt_conn.listAllDomains() if t.isActive())
+    return ' '.join('⌨  ' + t.name() for t in libvirt_conn.listAllDomains() if t.isActive())
 
 def load():
     return "😰 %.2f" % (os.getloadavg()[0])
