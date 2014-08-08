@@ -54,7 +54,7 @@ def battery():
     sys_read_float = lambda f: float(sys_read(f))
     per = 100 * sys_read_float('/sys/class/power_supply/BAT0/charge_now') / \
         sys_read_float('/sys/class/power_supply/BAT0/charge_full')
-    return "⚡ %.2f%%" % (per)
+    return "⚡ %d%%" % (round(per))
 
 
 libvirt_conn = libvirt.openReadOnly('lxc:///')
