@@ -31,7 +31,7 @@ def network():
         if isinstance(dev, NMClient.DeviceEthernet):
             sp = dev.get_speed()
             if sp >= 1000:
-                info.append("%dG" % (sp/1000))
+                info.append("%dG" % (sp / 1000))
             else:
                 info.append("%dM" % (sp))
         for addr in v4.get_addresses():
@@ -93,7 +93,3 @@ class Status:
 
 def main():
     Status().run()
-
-
-if __name__ == '__main__':
-    main()
